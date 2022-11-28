@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 // config
 import routes from './routes/index'
 
 // components
-// import PublicComponent from '@/components/Public'
+import PublicComponent from './components/Public'
 
 const App = props => {
-  // const role = useSelector(state => state.user.role) // 相当于 connect(state => state.user.role)(App)
-
+  const role = useSelector(state => state.user.role) // 相当于 connect(state => state.user.role)(App)
+  console.log(role)
   // 解构 route
   function renderRoutes(routes, contextPath) {
     const children = []
@@ -53,7 +53,7 @@ const App = props => {
   return (
     <BrowserRouter>
       {children}
-      {/* <PublicComponent /> */}
+      <PublicComponent />
     </BrowserRouter>)
 }
 

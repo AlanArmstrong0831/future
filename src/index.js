@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client';
 import App from './App'
-// import { Provider as BusProvider } from '@/hooks/useBus'
+import { Provider as BusProvider } from './hooks/useBus'
 
 // redux
-// import { Provider } from 'react-redux'
-// import store from '@/redux'
+import { Provider } from 'react-redux'
+import store from './redux'
 
 // styles
 import 'antd/dist/antd.min.css';
@@ -15,11 +15,21 @@ import 'antd/dist/antd.min.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    <App />
+    // <App />
   // </React.StrictMode>
+  <BusProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BusProvider>,
 );
+
 // ReactDOM.render(
-//   <App />,
+//   <BusProvider>
+//     <Provider store={store}>
+//       <App />
+//     </Provider>
+//   </BusProvider>,
 //   document.getElementById('root')
 // )
 

@@ -18,6 +18,6 @@ export function useListener(name, fn) {
 }
 
 export function Provider({ children }) {
-  const [bus] = React.useState(() => mitt())
+  const [bus] = React.useState(() => mitt()) 
   return <BusContext.Provider value={bus}>{children}</BusContext.Provider>
 }
