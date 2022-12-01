@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import axios from '../../utils/axios'
 // import { translateMarkdown } from '@/utils'
@@ -110,8 +110,7 @@ function CommentItem(props) {
 }
 
 const CommentList = props => {
-//   const userInfo = useSelector(state => state.user)
-const userInfo = {username: 'alan',userId: 1, role: 1}
+  const userInfo = useSelector(state => state.user)
   const { commentList, articleId } = props
   const [replyTarget, setReplyTarget] = useState({ commentId: 0, replyId: 0 })
 

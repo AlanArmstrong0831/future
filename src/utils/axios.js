@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { API_BASE_URL } from '@/config'
+import { API_BASE_URL } from '../config'
 
 import { message } from 'antd'
-import { getToken } from '@/utils'
+import { getToken } from './index'
 
 // create an axios instance
 const service = axios.create({
@@ -18,7 +18,8 @@ service.interceptors.request.use(
   config => {
     const token = getToken()
     if (token) {
-      config.headers.common['Authorization'] = token
+      // console.log(config)
+      config.headers['Authorization'] = token
     }
     return config
   },

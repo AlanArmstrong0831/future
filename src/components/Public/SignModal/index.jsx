@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Icon, Input, Button, Modal } from 'antd'
 import { useLocation } from 'react-router-dom'
+import {GithubOutlined} from '@ant-design/icons'
 
 import { GITHUB } from '../../../config'
 import { save } from '../../../utils/storage'
@@ -41,14 +42,11 @@ function SignModal(props) {
     setVisible(true)
   })
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    props.form.validateFieldsAndScroll((errors, values) => {
-      if (errors) return
-      const action = type === 'login' ? login : register
-      dispatch(action(values)).then(() => {
-        setVisible(false) // type =  login | register
-      })
+  function handleSubmit(values) {
+    console.log(values)
+    const action = type === 'login' ? login : register
+    dispatch(action(values)).then(() => {
+      setVisible(false) // type =  login | register
     })
   }
 
@@ -60,12 +58,12 @@ function SignModal(props) {
 
   // 确认密码
   function compareToFirstPassword(rule, value, callback) {
-    const form = props.form
-    if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!')
-    } else {
-      callback()
-    }
+    console.log(value)
+    // if (value && value !== form.getFieldValue('password')) {
+    //   callback('Two passwords that you enter is inconsistent!')
+    // } else {
+    //   callback()
+    // }
   }
 
   return (
@@ -75,7 +73,7 @@ function SignModal(props) {
       open={open}
       onCancel={e => setVisible(false)}
       footer={null}>
-      <Form layout='horizontal'>
+      <Form layout='horizontal' onFinish={handleSubmit}>
         {type === 'login' ? (
           <>
             <Form.Item label='用户名' name="account" rules={[{ required: true, message: 'Username is required' }]}>
@@ -85,66 +83,43 @@ function SignModal(props) {
               <Input placeholder='请输入密码'/>
             </Form.Item>
 
-            {/* <FormItem label='用户名'>
-              {getFieldDecorator('account', {
-                rules: [{ required: true, message: 'Username is required' }]
-              })(<Input placeholder='请输入用户名' />)}
-            </FormItem>
-            <FormItem label='密码'>
-              {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Password is required' }]
-              })(<Input placeholder='请输入密码' type='password' />)}
-            </FormItem> */}
           </>
         )
           : (
             <>
-              <Form.Item label='用户名' name="account" rules={[{ required: true, message: 'Username is required' }]}>
+              <Form.Item label='用户名' name="username" rules={[{ required: true, message: '请输入用户名' }]}>
                 <Input placeholder='请输入用户名'/>
               </Form.Item>
-              <Form.Item label='密码' name="password" rules={[{ required: true, message: 'Password is required' }]}>
+              <Form.Item label='密码' name="password" rules={[{ required: true, message: '请输入密码' }]}>
                 <Input placeholder='请输入密码'/>
               </Form.Item>
-              <Form.Item label='确认密码' name="confirm" rules={[{ required: true, message: 'Password is required' }, { validator: compareToFirstPassword }]}>
+              <Form.Item label='确认密码' name="confirm" rules={[{ required: true, message: '请确认密码' }, 
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('两次密码输入不一致!'));
+                  },
+                }),
+              ]}>
                 <Input placeholder='确认密码'/>
               </Form.Item>
-              <Form.Item label='邮箱' name="email" rules={[{ type: 'email', message: 'The input is not valid E-mail!' }, { required: true, message: 'Please input your E-mail!' }]}>
+              <Form.Item label='邮箱' name="email" rules={[{ type: 'email', message: '不是一个有效的邮箱!' }, { required: true, message: '请输入邮箱!' }]}>
                 <Input placeholder='请输入您的邮箱'/>
               </Form.Item>
-              {/* <FormItem label='用户名'>
-                {getFieldDecorator('username', {
-                  rules: [{ required: true, message: 'Username is required' }]
-                })(<Input placeholder='请输入用户名' />)}
-              </FormItem>
-              <FormItem label='密码'>
-                {getFieldDecorator('password', {
-                  rules: [{ required: true, message: 'Password is required' }]
-                })(<Input placeholder='请输入密码' type='password' />)}
-              </FormItem>
-              <FormItem label='确认密码'>
-                {getFieldDecorator('confirm', {
-                  rules: [
-                    { required: true, message: 'Password is required' },
-                    { validator: compareToFirstPassword }
-                  ]
-                })(<Input placeholder='确认密码' type='password' />)}
-              </FormItem>
-              <FormItem label='邮箱'>
-                {getFieldDecorator('email', {
-                  rules: [
-                    { type: 'email', message: 'The input is not valid E-mail!' },
-                    { required: true, message: 'Please input your E-mail!' }
-                  ]
-                })(<Input placeholder='请输入您的邮箱' />)}
-              </FormItem> */}
+
             </>
           )}
+          <Form.Item>
+            <Button type='primary' block htmlType="submit">
+              {type}
+            </Button>
+          </Form.Item>
       </Form>
-      <Button type='primary' block onClick={handleSubmit}>
-        {type}
-      </Button>
+      
       {GITHUB.enable && (
-        <Button block icon='github' onClick={githubLogin} style={{ marginTop: 10 }}>
+        <Button block icon={<GithubOutlined />} onClick={githubLogin} style={{ marginTop: 10 }}>
           github login
         </Button>
       )}

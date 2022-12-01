@@ -1,7 +1,7 @@
 import React, { Component, Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './index.less'
-// import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 // import { DISCUSS_AVATAR } from '@/config'
 import {GithubOutlined} from '@ant-design/icons';
 // methods
@@ -40,9 +40,9 @@ const Editor = ({ onChange, onSubmit, submitting, value, articleId }) => (
 function Discuss(props) {
   // const dispatch = useDispatch()
   // const bus = useBus()
-  // const userInfo = useSelector(state => state.user)
-  const userInfo = {username: 'alan',userId: 1, role: 1}
-  // const { username, role } = userInfo
+  const userInfo = useSelector(state => state.user)
+
+  const { username, role } = userInfo
 
   const { commentList, articleId } = props
   const [value, setValue] = useState('')
@@ -83,8 +83,8 @@ function Discuss(props) {
   // }
 
   function handleSubmit() {
-    // if (!value) return
-    // if (!userInfo.username) return message.warn('您未登陆，请登录后再试。')
+    if (!value) return
+    if (!userInfo.username) return message.warn('您未登陆，请登录后再试。')
 
     withLoading(
       axios.post('/discuss', { articleId: props.articleId, content: value, userId: userInfo.userId })
