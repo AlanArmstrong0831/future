@@ -66,11 +66,6 @@ class DiscussController {
           commentId = comment.id
         } else {
           // 添加回复
-          console.log('------'+userId)
-          console.log('------'+articleId)
-          console.log('------'+content)
-          console.log('------'+commentId)
-          
           await ReplyModel.create({ userId, articleId, content, commentId })
         }
         // await IpModel.findOrCreate({ where: { ip }, defaults: { userId, ip } })
@@ -83,33 +78,33 @@ class DiscussController {
     }
   }
 
-  // static async deleteComment(ctx) {
-  //   const validator = ctx.validate(ctx.params, {
-  //     commentId: Joi.number().required()
-  //   })
+  static async deleteComment(ctx) {
+    const validator = ctx.validate(ctx.params, {
+      commentId: Joi.number().required()
+    })
 
-  //   if (validator) {
-  //     const commentId = ctx.params.commentId
-  //     await sequelize.query(
-  //       `delete comment, reply from comment left join reply on comment.id=reply.commentId where comment.id=${commentId}`
-  //     )
-  //     // ctx.client(200)
-  //     ctx.status = 204
-  //   }
-  // }
+    if (validator) {
+      const commentId = ctx.params.commentId
+      await sequelize.query(
+        `delete comment, reply from comment left join reply on comment.id=reply.commentId where comment.id=${commentId}`
+      )
+      // ctx.client(200)
+      ctx.status = 204
+    }
+  }
 
-  // static async deleteReply(ctx) {
-  //   const validator = ctx.validate(ctx.params, {
-  //     replyId: Joi.number().required()
-  //   })
+  static async deleteReply(ctx) {
+    const validator = ctx.validate(ctx.params, {
+      replyId: Joi.number().required()
+    })
 
-  //   if (validator) {
-  //     const replyId = ctx.params.replyId
-  //     await ReplyModel.destroy({ where: { id: replyId } })
-  //     // ctx.client(200)
-  //     ctx.status = 204
-  //   }
-  // }
+    if (validator) {
+      const replyId = ctx.params.replyId
+      await ReplyModel.destroy({ where: { id: replyId } })
+      // ctx.client(200)
+      ctx.status = 204
+    }
+  }
 
   static async fetchDiscussList(articleId) {
     const data = await CommentModel.findAndCountAll({

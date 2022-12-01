@@ -53,7 +53,7 @@ function Article(props) {
             <div className='article-desc'>
               <span className='post-time'>
                 <EditOutlined />
-                &nbsp; Posted on &nbsp;
+                &nbsp; 发布于： &nbsp;
                 <span>{createdAt.slice(0, 10)}</span>
               </span>
               {/* <ArticleTag tagList={tags} categoryList={categories} /> */}
@@ -61,8 +61,7 @@ function Article(props) {
               <a className='comment-count' href='#discuss' style={{ color: 'inherit' }}>
                 {/* <SvgIcon type='iconcomment' /> */}
                 <CommentOutlined />
-                <span style={{ marginRight: 5 }}> 5 </span> 
-                {/* <span style={{ marginRight: 5 }}> {calcCommentsCount(comments)}</span> */}
+                <span style={{ marginRight: 5 }}> {calcCommentsCount(comments)}</span>
               </a>
               {/* <SvgIcon type='iconview' style={{ marginRight: 2 }} /> */}
               <EyeOutlined style={{ marginRight: 2 }}/>

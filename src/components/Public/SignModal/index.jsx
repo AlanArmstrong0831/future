@@ -56,16 +56,6 @@ function SignModal(props) {
     window.location.href = `${GITHUB.url}?client_id=${GITHUB.client_id}`
   }
 
-  // 确认密码
-  function compareToFirstPassword(rule, value, callback) {
-    console.log(value)
-    // if (value && value !== form.getFieldValue('password')) {
-    //   callback('Two passwords that you enter is inconsistent!')
-    // } else {
-    //   callback()
-    // }
-  }
-
   return (
     <Modal
       width={460}

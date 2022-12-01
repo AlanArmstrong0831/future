@@ -3,13 +3,15 @@ import { useSelector } from 'react-redux'
 
 import axios from '../../utils/axios'
 // import { translateMarkdown } from '@/utils'
+import { DeleteOutlined } from '@ant-design/icons';
 import dayjs from '../../utils/dayjs'
-// import AppAvatar from '@/components/Avatar'
+import AppAvatar from '../Avatar'
 import { Comment, Button, Tooltip, Input, Popconfirm, message } from 'antd'
 
 const { TextArea } = Input
 
 function CommentItem(props) {
+  
   const { children, item, userInfo, articleId, commentId, replyId, replyVisible } = props
   const { user } = item
   const [value, setValue] = useState('')
@@ -44,22 +46,22 @@ function CommentItem(props) {
   }
 
   // delete discuss
-//   function onDelete() {
-//     if (replyId) {
-//       axios.delete(`/discuss/reply/${replyId}`).then(() => {
-//         const commentList = [...props.commentList]
-//         const tagetComment = commentList.find(c => c.id === commentId)
-//         tagetComment.replies = tagetComment.replies.filter(r => r.id !== replyId)
-//         props.setCommentList(commentList)
-//       })
-//     } else {
-//       axios.delete(`/discuss/comment/${commentId}`).then(() => {
-//         let commentList = [...props.commentList]
-//         commentList = commentList.filter(c => c.id !== commentId)
-//         props.setCommentList(commentList)
-//       })
-//     }
-//   }
+  function onDelete() {
+    if (replyId) {
+      axios.delete(`/discuss/reply/${replyId}`).then(() => {
+        const commentList = [...props.commentList]
+        const tagetComment = commentList.find(c => c.id === commentId)
+        tagetComment.replies = tagetComment.replies.filter(r => r.id !== replyId)
+        props.setCommentList(commentList)
+      })
+    } else {
+      axios.delete(`/discuss/comment/${commentId}`).then(() => {
+        let commentList = [...props.commentList]
+        commentList = commentList.filter(c => c.id !== commentId)
+        props.setCommentList(commentList)
+      })
+    }
+  }
 
   function handleReply() {
     props.onReply({ commentId, replyId })
@@ -69,16 +71,16 @@ function CommentItem(props) {
     <Comment
       actions={[
         <span onClick={handleReply}>回复</span>,
-        // <>
-        //   {userInfo.role === 1 && (
-        //     <Popconfirm title={'是否删除该留言？'} cancelText='取消' okText='确认' onConfirm={onDelete}>
-        //       <Icon type='delete' className='icon-delete' />
-        //     </Popconfirm>
-        //   )}
-        // </>
+        <>
+          {userInfo.role === 1 && (
+            <Popconfirm title={'是否删除该留言？'} cancelText='取消' okText='确认' onConfirm={onDelete}>
+              <DeleteOutlined />
+            </Popconfirm>
+          )}
+        </>
       ]}
       author={<span>{user && user.username}</span>}
-    //   avatar={<AppAvatar userInfo={user} />}
+      avatar={<AppAvatar userInfo={user} />}
       content={
         // <div className='article-detail' dangerouslySetInnerHTML={{ __html: translateMarkdown(item.content, true) }} />
         <div>{item.content}</div>

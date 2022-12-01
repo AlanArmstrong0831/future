@@ -14,9 +14,4 @@ export default [
     title: '思考',
     link: '/categories'
   },
-  {
-    icon: 'user',
-    title: '关于',
-    link: '/about'
-  }
 ]
