@@ -1,8 +1,8 @@
 import webRoutes from './web'
-// import adminRoutes from './admin'
+import adminRoutes from './admin'
 
 const routes = [
-//   adminRoutes,
+  adminRoutes,
   webRoutes
 
   // ..

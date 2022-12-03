@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './index.less'
 import { useSelector, useDispatch } from 'react-redux'
 // import { DISCUSS_AVATAR } from '@/config'
-import { GithubOutlined, DownOutlined } from '@ant-design/icons';
+import { GithubOutlined, DownOutlined, InfoCircleOutlined } from '@ant-design/icons';
 // methods
 import axios from '../../utils/axios'
 import { calcCommentsCount } from '../../utils'
@@ -27,7 +27,7 @@ const Editor = ({ onChange, onSubmit, submitting, value, articleId }) => (
     </Form.Item>
     <Form.Item>
       <div className='controls'>
-        {/* <Icon type='info-circle' className='controls-tip-icon' /> */}
+        <InfoCircleOutlined className='controls-tip-icon'/>
         <span className='controls-tip'>支持 Markdown 语法</span>
         <Button className='disscus-btn' htmlType='submit' loading={submitting} onClick={onSubmit} type='primary'>
           {articleId !== -1 ? '添加评论' : '留言'}

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import '@/styles/admin.less'
+import '../../styles/admin.less'
 
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom'
 
 import { Layout } from 'antd'
 import AdminSideBar from './sidebar'
 import AdminHeader from './header'
-import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '../../components/Breadcrumb'
 
 const { Sider, Header, Content, Footer } = Layout
 

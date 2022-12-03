@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
-import { Menu, Icon } from 'antd'
+import { Menu } from 'antd'
 import menu from './menu'
 const SubMenu = Menu.SubMenu
 
@@ -31,7 +31,7 @@ function AdminSidebar(props) {
             key={item.path}
             title={
               <span>
-                {item.icon && <Icon type={item.icon} />}
+                {/* {item.icon && <Icon type={item.icon} />} */}
                 <span>{item.name}</span>
               </span>
             }>
@@ -43,7 +43,7 @@ function AdminSidebar(props) {
           item.name && (
             <Menu.Item key={item.path}>
               <NavLink to={item.path}>
-                {item.icon && <Icon type={item.icon} />}
+                {/* {item.icon && <Icon type={item.icon} />} */}
                 <span>{item.name}</span>
               </NavLink>
             </Menu.Item>

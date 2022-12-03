@@ -24,20 +24,16 @@ const FormItemLayout = {
   }
 }
 
-function FormItem(props) {
-  const { children, ...rest } = props
-  return <Form.Item {...FormItemLayout} {...rest}>{children}</Form.Item>
-}
 
 function SignModal(props) {
+  const [form] = Form.useForm();
   const dispatch = useDispatch() // dispatch hooks
   const location = useLocation() // location
   const [open, setVisible] = useState(false)
   const [type, setType] = useState('login')
-  // const { getFieldDecorator } = props.form
 
   useListener('openSignModal', type => {
-    // props.form.resetFields()
+    form.resetFields()
     setType(type)
     setVisible(true)
   })
@@ -63,7 +59,7 @@ function SignModal(props) {
       open={open}
       onCancel={e => setVisible(false)}
       footer={null}>
-      <Form layout='horizontal' onFinish={handleSubmit}>
+      <Form layout='horizontal' onFinish={handleSubmit} form={form}>
         {type === 'login' ? (
           <>
             <Form.Item label='用户名' name="account" rules={[{ required: true, message: 'Username is required' }]}>

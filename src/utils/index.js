@@ -1,25 +1,25 @@
-import marked from 'marked'
-import { COLOR_LIST } from '@/utils/config'
+import { marked } from 'marked'
+import { COLOR_LIST } from './config'
 import xss from 'xss'
-import { clear, get } from '@/utils/storage'
+import { clear, get } from './storage'
 
 // 转化 md 语法为 html
-// export const translateMarkdown = (plainText, isGuardXss = false) => {
-//   return marked(isGuardXss ? xss(plainText) : plainText, {
-//     renderer: new marked.Renderer(),
-//     gfm: true,
-//     pedantic: false,
-//     sanitize: false,
-//     tables: true,
-//     breaks: true,
-//     smartLists: true,
-//     smartypants: true,
-//     highlight: function(code) {
-//       /*eslint no-undef: "off"*/
-//       return hljs.highlightAuto(code).value
-//     }
-//   })
-// }
+export const translateMarkdown = (plainText, isGuardXss = false) => {
+  return marked(isGuardXss ? xss(plainText) : plainText, {
+    renderer: new marked.Renderer(),
+    gfm: true,
+    pedantic: false,
+    sanitize: false,
+    tables: true,
+    breaks: true,
+    smartLists: true,
+    smartypants: true,
+    highlight: function(code) {
+      /*eslint no-undef: "off"*/
+      return hljs.highlightAuto(code).value
+    }
+  })
+}
 
 // 获取 url query 参数
 export const decodeQuery = url => {

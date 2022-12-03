@@ -7,11 +7,8 @@ import {
 } from '@ant-design/icons';
 
 // import config
-import { HEADER_BLOG_NAME } from '@/config'
+import { HEADER_BLOG_NAME } from '../../../../config'
 import navList from '../right/navList'
-
-// icon
-import SvgIcon from '@/components/SvgIcon'
 
 const HeaderLeft = props => {
   const [keyword, setKeyword] = useState('')
@@ -63,7 +60,6 @@ const HeaderLeft = props => {
 
   return (
     <div className='header-left'>
-      <SvgIcon type='iconblog' style={{ color: '#055796', width: 16, height: 16, transform: 'translateY(-2px)' }} />
       <span className='blog-name'>{HEADER_BLOG_NAME}</span>
     </div>
   )

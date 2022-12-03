@@ -19,7 +19,7 @@ const App = props => {
       let newContextPath = item.path ? `${routeContextPath}/${item.path}` : routeContextPath
       newContextPath = newContextPath.replace(/\/+/g, '/')
       // 如果路由是后台管理的话 --》
-      if (newContextPath.includes('admin')) {
+      if (newContextPath.includes('admin') && role !== 1){
         // if (newContextPath.includes('admin') && role !== 1) {
         item = {
           ...item,

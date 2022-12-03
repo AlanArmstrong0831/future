@@ -18,20 +18,29 @@ function UserInfo(props) {
   const userInfo = useSelector(state => state.user)
   const { username, github, role } = userInfo
   
+  const writeArticle = () => {
+
+  }
+
   const MenuOverLay = (
     <Menu>
+      <Menu.Item key="1">
+        <span className='user-logout' onClick={writeArticle}>
+          写文章
+        </span>
+      </Menu.Item>
       {role === 1 && (
-        <Menu.Item>
+        <Menu.Item key="2">
           <span onClick={e => bus.emit('openUploadModal')}>导入文章</span>
         </Menu.Item>
       )}
       {role === 1 && (
-        <Menu.Item>
+        <Menu.Item key="3">
           <span onClick={e => props.history.push('/admin')}>后台管理</span>
         </Menu.Item>
       )}
 
-      <Menu.Item>
+      <Menu.Item key="4">
         <span className='user-logout' onClick={e => dispatch(loginout())}>
           退出登录
         </span>

@@ -2,12 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './index.less'
 // config
-import { DISCUSS_AVATAR } from '@/config'
+import { DISCUSS_AVATAR } from '../../config'
 
 // components
 import Href from '../Href' 
 import { Avatar, Popover, Typography } from 'antd'
-import SvgIcon from '../SvgIcon'
 
 const { Text, Title } = Typography
 

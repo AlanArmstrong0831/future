@@ -4,7 +4,6 @@ import useAjaxLoading from '../../../hooks/useAjaxLoading'
 import { useMediaQuery } from 'react-responsive'
 import { Link, useHistory } from 'react-router-dom'
 import { Divider, Spin } from 'antd'
-import SvgIcon from '../../../components/SvgIcon'
 import Discuss from '../../../components/Discuss'
 import {calcCommentsCount} from '../../../utils'
 import axios from '../../../utils/axios'
@@ -59,11 +58,9 @@ function Article(props) {
               {/* <ArticleTag tagList={tags} categoryList={categories} /> */}
               <Divider type='vertical' />
               <a className='comment-count' href='#discuss' style={{ color: 'inherit' }}>
-                {/* <SvgIcon type='iconcomment' /> */}
                 <CommentOutlined />
                 <span style={{ marginRight: 5 }}> {calcCommentsCount(comments)}</span>
               </a>
-              {/* <SvgIcon type='iconview' style={{ marginRight: 2 }} /> */}
               <EyeOutlined style={{ marginRight: 2 }}/>
               <span>{viewCount}</span>
             </div>

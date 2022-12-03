@@ -1,9 +1,8 @@
 import React from 'react'
 // import { Icon } from 'antd'
 import {GithubOutlined} from '@ant-design/icons';
-import SvgIcon from '@/components/SvgIcon'
 
-import Href from '@/components/Href'
+import Href from './components/Href'
 // import MyInfo from '@/views/web/about/MyInfo'
 
 // API_BASE_URL
@@ -26,7 +25,7 @@ export const SIDEBAR = {
     },
     juejin: {
       link: 'https://juejin.im/user/5acac6c4f265da2378408f92',
-      icon: <SvgIcon type='iconjuejin' className='homepage-icon' />
+      icon: <GithubOutlined />
     }
   }
 }
