@@ -8,7 +8,7 @@ import Discuss from '../../../components/Discuss'
 import {calcCommentsCount} from '../../../utils'
 import axios from '../../../utils/axios'
 import {EditOutlined, EyeOutlined, CommentOutlined } from '@ant-design/icons';
-
+import { translateMarkdown } from '../../../utils'
 /**
  * 文章内容
 */
@@ -31,7 +31,7 @@ function Article(props) {
   useEffect(() => {
     withLoading(axios.get(`/article/${props.match.params.id}`))
       .then(res => {
-        // res.content = translateMarkdown(res.content)
+        res.content = translateMarkdown(res.content)
         setArticle(res)
       })
       .catch(e => {

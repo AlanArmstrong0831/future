@@ -76,6 +76,99 @@ class UserController {
       }
     }
   }
+
+  /**
+   * 获取用户列表
+   */
+   static async getList(ctx) {
+    const validator = ctx.validate(ctx.query, {
+      username: Joi.string().allow(''),
+      type: Joi.number(), // 检索类型 type = 1 github 用户 type = 2 站内用户 不传则检索所有
+      'rangeDate[]': Joi.array(),
+      page: Joi.string(),
+      pageSize: Joi.number()
+    })
+
+    if (validator) {
+      const { page = 1, pageSize = 10, username, type } = ctx.query
+      const rangeDate = ctx.query['rangeDate[]']
+      const where = {
+        role: { $not: 1 }
+      }
+
+      if (username) {
+        where.username = {}
+        where.username['$like'] = `%${username}%`
+      }
+
+      if (type) {
+        where.github = parseInt(type) === 1 ? { $not: null } : null
+      }
+
+      if (Array.isArray(rangeDate) && rangeDate.length === 2) {
+        where.createdAt = { $between: rangeDate }
+      }
+
+      const result = await UserModel.findAndCountAll({
+        where,
+        offset: (page - 1) * pageSize,
+        limit: parseInt(pageSize),
+        row: true,
+        order: [['createdAt', 'DESC']]
+      })
+
+      // ctx.client(200, 'success', result)
+      ctx.body = result
+    }
+  }
+
+  // 更新用户信息
+  static updateUserById(userId, data) {
+    return UserModel.update(data, { where: { id: userId } })
+  }
+
+  /**
+   * 更新用户
+   */
+   static async updateUser(ctx) {
+    const validator = ctx.validate(
+      {
+        ...ctx.params,
+        ...ctx.request.body
+      },
+      {
+        userId: Joi.number().required(),
+        notice: Joi.boolean(),
+        disabledDiscuss: Joi.boolean()
+      }
+    )
+
+    if (validator) {
+      const { userId } = ctx.params
+      const { notice, disabledDiscuss } = ctx.request.body
+      await UserController.updateUserById(userId, { notice, disabledDiscuss })
+      // if (typeof disabledDiscuss !== 'undefined') {
+      //   await IpModel.update({ auth: !disabledDiscuss }, { where: { userId: parseInt(userId) } })
+      // }
+      ctx.status = 204
+    }
+  }
+
+  // 删除用户
+  static async delete(ctx) {
+    const validator = ctx.validate(ctx.params, {
+      userId: Joi.number().required()
+    })
+
+    if (validator) {
+      await sequelize.query(
+        `delete comment, reply from comment left join reply on comment.id=reply.commentId where comment.userId=${ctx.params.userId}`
+      )
+      await UserModel.destroy({ where: { id: ctx.params.userId } })
+      // ctx.client(200)
+      ctx.status = 204
+    }
+  }
 }
 
 module.exports = UserController

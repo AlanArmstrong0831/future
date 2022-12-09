@@ -60,20 +60,28 @@ class DiscussController {
       //   }
       // } else {
         // const ip = ctx.request.ip
-        if (!commentId) {
-          // 添加评论
-          const comment = await CommentModel.create({ userId, articleId, content })
-          commentId = comment.id
+        if(user.disabledDiscuss) {
+          ctx.status = 401
+          ctx.response.body = {
+            message: '您已被禁言，请文明留言！'
+          }
         } else {
-          // 添加回复
-          await ReplyModel.create({ userId, articleId, content, commentId })
+          if (!commentId) {
+            // 添加评论
+            const comment = await CommentModel.create({ userId, articleId, content })
+            commentId = comment.id
+          } else {
+            // 添加回复
+            await ReplyModel.create({ userId, articleId, content, commentId })
+          }
+          // await IpModel.findOrCreate({ where: { ip }, defaults: { userId, ip } })
+          const list = await DiscussController.fetchDiscussList(articleId)
+  
+          // EMAIL_NOTICE.enable && sendingEmail(articleId, list, commentId, userId)
+  
+          ctx.body = list
         }
-        // await IpModel.findOrCreate({ where: { ip }, defaults: { userId, ip } })
-        const list = await DiscussController.fetchDiscussList(articleId)
-
-        // EMAIL_NOTICE.enable && sendingEmail(articleId, list, commentId, userId)
-
-        ctx.body = list
+        
       // }
     }
   }

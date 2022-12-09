@@ -12,6 +12,33 @@ const {
 
   class ArticleController {
 
+     // 创建文章
+    static async create(ctx) {
+        const validator = ctx.validate(ctx.request.body, {
+            authorId: Joi.number().required(),
+            title: Joi.string().required(),
+            content: Joi.string(),
+            // categoryList: Joi.array(),
+            tagList: Joi.array()
+        })
+
+        if (validator) {
+            const { title, content, tagList = [], authorId } = ctx.request.body
+            const result = await ArticleModel.findOne({ where: { title } })
+        if (result) {
+            ctx.throw(403, '创建失败，该文章已存在！')
+        } else {
+            const tags = tagList.map(t => ({ name: t }))
+            // const categories = categoryList.map(c => ({ name: c }))
+            const data = await ArticleModel.create(
+                { title, content, authorId, tags },
+                { include: [TagModel] }
+            )
+            ctx.body = data
+        }
+        }
+    }
+
     // 获取文章列表
     static async getList(ctx) {
         const validator = ctx.validate(ctx.query, {
@@ -121,6 +148,77 @@ const {
             //     })
             // })
             ctx.body = data
+        }
+    }
+
+    // 删除文章
+    static async delete(ctx) {
+        const validator = ctx.validate(ctx.params, {
+            id: Joi.number().required()
+        })
+        if (validator) {
+            const articleId = ctx.params.id
+            await sequelize.query(
+                `delete comment, reply, tag, article
+                from article 
+                left join reply on article.id=reply.articleId 
+                left join comment on article.id=comment.articleId 
+        
+                left join tag on article.id=tag.articleId 
+                where article.id=${articleId}`
+            )
+            ctx.status = 204
+        }
+    }
+
+    // 删除多个文章
+    static async delList(ctx) {
+        const validator = ctx.validate(ctx.params, {
+          list: Joi.string().required()
+        })
+
+        if (validator) {
+            const list = ctx.params.list.split(',')
+            await sequelize.query(
+                `delete comment, reply, tag, article
+                from article 
+                left join reply on article.id=reply.articleId 
+                left join comment on article.id=comment.articleId 
+
+                left join tag on article.id=tag.articleId 
+                where article.id in (${list})`
+            )
+            ctx.status = 204
+        }
+    }
+
+     // 修改文章
+    static async update(ctx) {
+        console.log('---------'+ctx.params.id)
+        const validator = ctx.validate(
+        {
+            articleId: ctx.params.id,
+            ...ctx.request.body
+        },
+        {
+            articleId: Joi.number().required(),
+            title: Joi.string(),
+            content: Joi.string(),
+            categories: Joi.array(),
+            tags: Joi.array()
+        }
+        )
+        if (validator) {
+            const { title, content, categories = [], tags = [] } = ctx.request.body
+            const articleId = parseInt(ctx.params.id)
+            const tagList = tags.map(tag => ({ name: tag, articleId }))
+            const categoryList = categories.map(cate => ({ name: cate, articleId }))
+            await ArticleModel.update({ title, content }, { where: { id: articleId } })
+            await TagModel.destroy({ where: { articleId } })
+            await TagModel.bulkCreate(tagList)
+            // await CategoryModel.destroy({ where: { articleId } })
+            // await CategoryModel.bulkCreate(categoryList)
+            ctx.status = 204
         }
     }
   }

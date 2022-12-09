@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import useMount from '../../hooks/useMount'
 
 // actions
-// import { getTagList, getCategoryList } from '@/redux/article/actions'
+import { getTagList, getCategoryList } from '@/redux/article/actions'
 
 // components
 import SignModal from './SignModal'
@@ -20,10 +20,10 @@ function PublicComponent(props) {
   const dispatch = useDispatch() // dispatch hooks
   const { modalProps } = useModal()
 
-  // useMount(() => {
-  //   dispatch(getTagList())
-  //   dispatch(getCategoryList())
-  // })
+  useMount(() => {
+    dispatch(getTagList())
+    // dispatch(getCategoryList())
+  })
 
   return (
     <>

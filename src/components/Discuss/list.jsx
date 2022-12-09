@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import axios from '../../utils/axios'
-// import { translateMarkdown } from '@/utils'
+import { translateMarkdown } from '../../utils'
 import { DeleteOutlined } from '@ant-design/icons';
 import dayjs from '../../utils/dayjs'
 import AppAvatar from '../Avatar'
@@ -82,8 +82,8 @@ function CommentItem(props) {
       author={<span>{user && user.username}</span>}
       avatar={<AppAvatar userInfo={user} />}
       content={
-        // <div className='article-detail' dangerouslySetInnerHTML={{ __html: translateMarkdown(item.content, true) }} />
-        <div>{item.content}</div>
+        <div className='article-detail' dangerouslySetInnerHTML={{ __html: translateMarkdown(item.content, true) }} />
+        // <div>{item.content}</div>
       }
       datetime={
         <Tooltip title={item.createdAt}>
