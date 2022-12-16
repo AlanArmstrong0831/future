@@ -60,30 +60,26 @@ function AdminUser(props) {
           <Popconfirm
             title='Are you sure？'
             onConfirm={e => updateList(() => axios.delete(`/user/${userId}`))}>
-            <a className='delete-text'>Delete</a>
+            <a className='delete-text'>删除用户</a>
           </Popconfirm>
         )
       }
     ]
   })
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    props.form.validateFields((err, values) => {
-      if (!err) {
-        if (Array.isArray(values.rangeDate)) {
-          values.rangeDate = values.rangeDate.map(m => m.format('YYYY-MM-DD'))
-        }
-        setQueryParams({ ...queryParams, ...values })
-        onSearch({ ...queryParams, ...values })
-      }
-    })
+  function handleSubmit(values) {
+    console.log(values)
+    if (Array.isArray(values.rangeDate)) {
+      values.rangeDate = values.rangeDate.map(m => m.format('YYYY-MM-DD'))
+    }
+    setQueryParams({ ...queryParams, ...values })
+    onSearch({ ...queryParams, ...values })
   }
 
   return (
     <>
       {/* 检索 */}
-      <Form layout='inline' onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
+      <Form layout='inline' onFinish={handleSubmit} style={{ marginBottom: 20 }}>
         <Form.Item label='姓名' name="username">
           <Input placeholder='请输入姓名' allowClear />
         </Form.Item>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Input, Row } from 'antd'
 import { useHistory, useLocation } from 'react-router-dom'
-import useMount from '@/hooks/useMount'
-import { decodeQuery } from '@/utils'
+import useMount from '../../../../hooks/useMount'
+import { decodeQuery } from '../../../../utils'
 import {
   SearchOutlined
 } from '@ant-design/icons';

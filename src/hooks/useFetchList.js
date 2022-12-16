@@ -20,7 +20,7 @@ export default function useFetchList({
 }) {
   const [dataList, setDataList] = useState([])
   const [loading, setLoading] = useState(false)
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 })
+  const [pagination, setPagination] = useState({ page: 1, pageSize: 10, total: 0 })
 
   const location = useLocation()
   const history = useHistory()
@@ -45,7 +45,7 @@ export default function useFetchList({
 
   function fetchDataList(params) {
     const requestParams = {
-      page: pagination.current,
+      page: pagination.page,
       pageSize: pagination.pageSize,
       ...queryParams,
       ...params
@@ -57,7 +57,7 @@ export default function useFetchList({
       .get(requestUrl, { params: requestParams })
       .then(response => {
         pagination.total = response.count
-        pagination.current = parseInt(requestParams.page)
+        pagination.page = parseInt(requestParams.page)
         pagination.pageSize = parseInt(requestParams.pageSize)
         setPagination({ ...pagination })
         setDataList(response.rows)

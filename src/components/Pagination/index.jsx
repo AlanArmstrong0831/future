@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Pagination } from 'antd'
 import { useMediaQuery } from 'react-responsive'
 
-function WebPagination({ total, current, onChange, pageSize, style = {} }) {
+function WebPagination({ total, page, onChange, pageSize, style = {} }) {
   const isLessThan736 = useMediaQuery({
     query: '(max-width: 736px)'
   })
@@ -11,7 +11,7 @@ function WebPagination({ total, current, onChange, pageSize, style = {} }) {
     <div className='app-pagination' style={style}>
       <Pagination
         hideOnSinglePage
-        current={current}
+        current={page}
         onChange={onChange}
         total={total}
         pageSize={pageSize}
@@ -24,7 +24,7 @@ function WebPagination({ total, current, onChange, pageSize, style = {} }) {
 WebPagination.propTypes = {
   total: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
-  current: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
   pageSize: PropTypes.number
 }
 

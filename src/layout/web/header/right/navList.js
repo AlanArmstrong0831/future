@@ -1,13 +1,13 @@
 export default [
   {
     icon: 'home',
-    title: '首页',
+    title: '笔记',
     link: '/'
   },
   {
     icon: 'edit',
-    title: '笔记',
-    link: '/archives'
+    title: '分享',
+    link: '/shareHome'
   },
   {
     icon: 'folder',
