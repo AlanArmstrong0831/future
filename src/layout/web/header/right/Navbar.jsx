@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu } from 'antd'
 import {
-  SearchOutlined
+  ReadOutlined
 } from '@ant-design/icons';
 import navList from './navList'
 
@@ -16,7 +16,7 @@ function NavBar(props) {
       {navList.map(nav => (
         <Menu.Item key={nav.link}>
           <Link to={nav.link}>
-            {nav.icon && <SearchOutlined type={nav.icon} style={{ marginRight: 15 }} />}
+            {nav.icon && <ReadOutlined type={nav.icon} style={{ marginRight: 15 }} />}
             <span className='nav-text'>{nav.title}</span>
           </Link>
         </Menu.Item>

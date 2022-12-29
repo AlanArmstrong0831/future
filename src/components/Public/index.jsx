@@ -29,13 +29,14 @@ function PublicComponent(props) {
     <>
       <SignModal />
       {/* <UploadModal /> */}
-      {/* <Modal {...modalProps} title='公告'>
-        <h4>本博客已不再维护！，该项目已升级为 ssr 版本，项目地址为{' '}
-          <a href='https://github.com/alvin0216/remix-ssr-blog/' target='_blank'>remix-ssr-blogs</a>，
-          访问地址 <a href='https://remix.alvin.run/' target='_blank'>remix.alvin.run</a>。
-          多谢关注与支持！
-        </h4>
-      </Modal> */}
+      <Modal {...modalProps} title='公告'>
+        <h2>本次更新内容：</h2>
+        <h6>1.隐藏思考栏目</h6>
+        <h6>2.隐藏非管理员写文章入口</h6>
+        <h6>3.优化页面UI</h6>
+        <h6>4.增加分享帖子回帖功能</h6>
+        <h6>5.修复无法发帖BUG</h6>
+      </Modal>
     </>
   )
 }

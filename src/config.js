@@ -6,10 +6,11 @@ import Href from './components/Href'
 // import MyInfo from '@/views/web/about/MyInfo'
 
 // API_BASE_URL
-export const API_BASE_URL = 'http://localhost:6060'
+// export const API_BASE_URL = 'http://106.15.205.230:6061'
+export const API_BASE_URL = 'http://localhost:6061'
 
 // project config
-export const HEADER_BLOG_NAME = '阿姆斯特朗的博客' // header title 显示的名字
+export const HEADER_BLOG_NAME = '309车管所' // header title 显示的名字
 
 // === sidebar
 export const SIDEBAR = {
@@ -55,7 +56,7 @@ export const ANNOUNCEMENT = {
   content: (
     <>
       个人笔记网站，请访问
-      <Href href='https://alvin.run'> alan's note</Href>
+      <Href href='www.baidu.com'> alan's note</Href>
     </>
   )
 }

@@ -24,11 +24,11 @@ function UserInfo(props) {
 
   const MenuOverLay = (
     <Menu>
-      <Menu.Item key="1">
+      {/* <Menu.Item key="1">
         <span className='user-logout' onClick={writeArticle}>
           写文章
         </span>
-      </Menu.Item>
+      </Menu.Item> */}
       {role === 1 && (
         <Menu.Item key="2">
           <span onClick={e => bus.emit('openUploadModal')}>导入文章</span>

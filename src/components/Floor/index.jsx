@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { Card, Divider, Tag } from 'antd'
 import AppAvatar from '../Avatar'
 import dayjs from '../../utils/dayjs'
+import UserinfoInShare from '../UserinfoInShare'
 import { EyeOutlined, TagOutlined, CommentOutlined } from '@ant-design/icons';
 
 import './index.less'
@@ -13,20 +14,19 @@ function Floor(props) {
   const history = useHistory()
 
   useEffect(()=>{
-    console.log(props)
+    // console.log(props)
   },[])
 
 
   return (
     <div className='floor-main'>
         <div className='floor-userinfo'>
-            <div className='user-avatar'><AppAvatar style={{width: '60%'}} userInfo={props.prop.user} /></div>
-            <div className='user-info'>{props.prop.user.username}</div>
+          <UserinfoInShare info={props.prop.user}></UserinfoInShare>
         </div>
         <div className='floor-content'>
             <span>{props.prop.content}</span>
             <div className='floor-info'>
-                <span> 1楼 &nbsp;&nbsp;</span>
+                <span> {`${props.prop.number}楼`} &nbsp;&nbsp;</span>
                 <span>{dayjs(props.prop.createdAt).fromNow()}</span>
             </div>
             

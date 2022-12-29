@@ -1,6 +1,9 @@
+import {
+  ReadOutlined
+} from '@ant-design/icons';
 export default [
   {
-    icon: 'home',
+    icon: <ReadOutlined />,
     title: '笔记',
     link: '/'
   },
@@ -9,9 +12,9 @@ export default [
     title: '分享',
     link: '/shareHome'
   },
-  {
-    icon: 'folder',
-    title: '思考',
-    link: '/categories'
-  },
+  // {
+  //   icon: 'folder',
+  //   title: '思考',
+  //   link: '/categories'
+  // },
 ]

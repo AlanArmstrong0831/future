@@ -1,0 +1,41 @@
+.mainBox{
+    height: calc(100vh - 64px - 60px);
+    .floor-title{
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .floor-main{
+        .floor-userinfo{
+            display: flex;
+            flex-direction: column;
+            .user-avatar{
+                .ant-avatar{
+                    width: 64px;
+                    height: 64px;
+                    line-height: 64px;
+                }
+            }
+            .user-level{
+                width: 80%;
+                height: 21px;
+                line-height: 21px;
+                font-size: 12px;
+                border: 1px solid rgb(10, 130, 209);
+                border-radius: 12px;
+                text-align: center;
+                margin: 0 auto;
+            }
+        }
+        .floor-content{
+            font-weight: bold;
+        }
+    }
+    .reply{
+        margin-top: 30px;
+        padding: 20px;
+        .ant-input{
+            width: calc(80vw - 40px);
+        }
+    }
+}

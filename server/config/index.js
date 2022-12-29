@@ -1,7 +1,7 @@
 const devMode = process.env.NODE_ENV === 'development'
 
 const config = {
-  PORT: 6060, // 启动端口
+  PORT: 6061, // 启动端口
   ADMIN_GITHUB_LOGIN_NAME: 'gershonv', // 博主的 github 登录的账户名 user
   GITHUB: {
     client_id: 'c6a96a84105bb0be1fe5',
@@ -36,7 +36,8 @@ const config = {
     user: 'root',
     password: '123456789',
     options: {
-      host: 'localhost', // 连接的 host 地址
+      host: '127.0.0.1', // 连接的 host 地址
+      // host: 'localhost', // 连接的 host 地址
       dialect: 'mysql', // 连接到 mysql
       pool: {
         max: 5,
@@ -60,9 +61,9 @@ if (!devMode) {
   // ==== 配置数据库
   config.DATABASE = {
     ...config.DATABASE,
-    database: '', // 数据库名
-    user: '', // 账号
-    password: '' // 密码
+    // database: '', // 数据库名
+    // user: '', // 账号
+    // password: '' // 密码
   }
 
   // 配置 github 授权

@@ -65,7 +65,15 @@ const {
             }
             },
             include: [
-               
+                {
+                    model: FloorModel,
+                    attributes: ['id', 'content', 'createdAt'],
+                    include: [
+                        { model: UserModel, as: 'user', attributes: { exclude: ['updatedAt', 'password'] } }
+                    ],
+                    row: true
+                },
+                { model: UserModel, as: 'user', attributes: { exclude: ['updatedAt', 'password'] } }
             ],
             offset: (page - 1) * pageSize,
             limit: parseInt(pageSize),
@@ -106,7 +114,7 @@ const {
                 },
                 { model: UserModel, as: 'user', attributes: { exclude: ['updatedAt', 'password'] } }
                 ],
-                order: [[FloorModel, 'createdAt', 'DESC']], // comment model order
+                order: [[FloorModel, 'createdAt', 'ASC']], // comment model order
                 row: true
             })
             ctx.body = data

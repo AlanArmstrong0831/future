@@ -7,6 +7,7 @@ export default function useModal() {
 
   const modalProps = {
     open,
+    onOk: close,
     onCancel: close
   }
 
